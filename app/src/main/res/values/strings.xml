@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">DrawingAppKotlin</string>
+    <string name="large_brush">Large Brush</string>
+    <string name="medium_brush">Medium Brush</string>
+    <string name="small_brush">Small Brush</string>
 </resources>
