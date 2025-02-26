@@ -3,4 +3,14 @@
     <string name="large_brush">Large Brush</string>
     <string name="medium_brush">Medium Brush</string>
     <string name="small_brush">Small Brush</string>
+    <string name="brush_size_button">Brush Size Button</string>
+    <string name="black_paint">Black Paint</string>
+    <string name="green_paint">Green Paint</string>
+    <string name="yellow_paint">Yellow Paint</string>
+    <string name="blue_paint">Blue Paint</string>
+    <string name="red_paint">Red Paint</string>
+    <string name="orange_paint">Orange Paint</string>
+    <string name="purple_paint">Purple Paint</string>
+    <string name="random_color_paint">Random Color Paint</string>
+    <string name="white_paint">White Paint</string>
 </resources>
