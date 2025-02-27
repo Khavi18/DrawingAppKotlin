@@ -13,4 +13,6 @@
     <string name="purple_paint">Purple Paint</string>
     <string name="random_color_paint">Random Color Paint</string>
     <string name="white_paint">White Paint</string>
+    <string name="drawing_image">Drawing Image</string>
+    <string name="add_image_button">Add Image Button</string>
 </resources>

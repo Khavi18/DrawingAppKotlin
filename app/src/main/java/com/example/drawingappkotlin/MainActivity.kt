@@ -1,13 +1,23 @@
 package com.example.drawingappkotlin
 
+import android.Manifest
 import android.app.Dialog
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.View
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -18,7 +28,36 @@ class MainActivity : AppCompatActivity() {
     private var drawingView: DrawingView? = null
     private var ibBrush: ImageButton? = null
     private var mImageButtonCurrentPaint: ImageButton? = null
+    private var ibGallery: ImageButton? = null
 
+    val openGalleryLauncher: ActivityResultLauncher<Intent> =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            result ->
+            if(result.resultCode == RESULT_OK && result.data != null) {
+                val imageBackground: ImageView = findViewById(R.id.IvBackground)
+                imageBackground.setImageURI(result.data?.data)
+            }
+        }
+
+    val requestPermission: ActivityResultLauncher<Array<String>> =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
+            permissions ->
+            permissions.entries.forEach {
+                val permissionName = it.key
+                val isGranted = it.value
+
+                if(isGranted) {
+                    val pickIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                    openGalleryLauncher.launch(pickIntent)
+                } else {
+                    if (permissionName == Manifest.permission.READ_MEDIA_IMAGES) {
+                        Toast.makeText(this@MainActivity, "Permission Not Granted", Toast.LENGTH_LONG).show()
+                    }
+                }
+            }
+        }
+
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -39,6 +78,22 @@ class MainActivity : AppCompatActivity() {
         ibBrush = findViewById(R.id.ibBrush)
         ibBrush?.setOnClickListener {
             showBrushSizeChooserDialog()
+        }
+
+        ibGallery = findViewById(R.id.ibImageGallery)
+        ibGallery?.setOnClickListener {
+            requestStoragePermission()
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    private fun requestStoragePermission() {
+        if(ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_MEDIA_IMAGES)) {
+            showRationaleDialog("Drawing App", "Drawing App needs to access your images")
+        } else {
+            requestPermission.launch(arrayOf(
+                Manifest.permission.READ_MEDIA_IMAGES
+            ))
         }
     }
 
@@ -83,5 +138,15 @@ class MainActivity : AppCompatActivity() {
 
             mImageButtonCurrentPaint = view
         }
+    }
+
+    private fun showRationaleDialog(title: String, message: String) {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+        builder.setTitle(title)
+            .setMessage(message)
+            .setPositiveButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+        builder.create().show()
     }
 }
