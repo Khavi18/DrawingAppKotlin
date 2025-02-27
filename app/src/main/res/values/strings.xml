@@ -15,4 +15,6 @@
     <string name="white_paint">White Paint</string>
     <string name="drawing_image">Drawing Image</string>
     <string name="add_image_button">Add Image Button</string>
+    <string name="undo_button">Undo Button</string>
+    <string name="redo_button">Redo Button</string>
 </resources>

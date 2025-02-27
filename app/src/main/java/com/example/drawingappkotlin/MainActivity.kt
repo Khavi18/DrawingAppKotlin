@@ -29,6 +29,8 @@ class MainActivity : AppCompatActivity() {
     private var ibBrush: ImageButton? = null
     private var mImageButtonCurrentPaint: ImageButton? = null
     private var ibGallery: ImageButton? = null
+    private var ibUndo: ImageButton? = null
+    private var ibRedo: ImageButton? = null
 
     val openGalleryLauncher: ActivityResultLauncher<Intent> =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -83,6 +85,16 @@ class MainActivity : AppCompatActivity() {
         ibGallery = findViewById(R.id.ibImageGallery)
         ibGallery?.setOnClickListener {
             requestStoragePermission()
+        }
+
+        ibUndo = findViewById(R.id.ibUndo)
+        ibUndo?.setOnClickListener {
+            drawingView?.onClickUndo()
+        }
+
+        ibRedo = findViewById(R.id.ibRedo)
+        ibRedo?.setOnClickListener {
+            drawingView?.onClickRedo()
         }
     }
 
