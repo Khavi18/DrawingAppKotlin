@@ -17,4 +17,6 @@
     <string name="add_image_button">Add Image Button</string>
     <string name="undo_button">Undo Button</string>
     <string name="redo_button">Redo Button</string>
+    <string name="save_button">Save Button</string>
+    <string name="please_wait">Please Wait...</string>
 </resources>

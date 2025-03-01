@@ -26,7 +26,7 @@
             android:layout_height="match_parent"
             android:contentDescription="@string/drawing_image"
             android:scaleType="centerCrop"
-            android:src="@drawable/klcc" />
+            tools:src="@drawable/klcc" />
 
         <com.example.drawingappkotlin.DrawingView
         android:layout_width="match_parent"
@@ -185,6 +185,15 @@
         android:src="@drawable/baseline_brush_24"
         android:scaleType="fitXY"
         android:contentDescription="@string/brush_size_button"/>
+
+        <ImageButton
+            android:id="@+id/ibSave"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:src="@drawable/baseline_save_24"
+            android:scaleType="fitXY"
+            android:contentDescription="@string/save_button"/>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
